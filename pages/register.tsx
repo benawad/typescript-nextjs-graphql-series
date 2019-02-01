@@ -1,4 +1,5 @@
 import { Field, Formik } from "formik";
+import Router from "next/router";
 import React from "react";
 import { InputField } from "../components/fields/InputField";
 import Layout from "../components/Layout";
@@ -20,6 +21,7 @@ export default () => {
                   }
                 });
                 console.log(response);
+                Router.push("/check-email");
               } catch (err) {
                 const errors: { [key: string]: string } = {};
                 err.graphQLErrors[0].validationErrors.forEach(
