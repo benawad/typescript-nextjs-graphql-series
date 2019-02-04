@@ -27,6 +27,30 @@ export type Upload = any;
 // Documents
 // ====================================================
 
+export type ChangePasswordVariables = {
+  data: ChangePasswordInput;
+};
+
+export type ChangePasswordMutation = {
+  __typename?: "Mutation";
+
+  changePassword: Maybe<ChangePasswordChangePassword>;
+};
+
+export type ChangePasswordChangePassword = {
+  __typename?: "User";
+
+  id: string;
+
+  firstName: string;
+
+  lastName: string;
+
+  email: string;
+
+  name: string;
+};
+
 export type ConfirmUserVariables = {
   token: string;
 };
@@ -35,6 +59,16 @@ export type ConfirmUserMutation = {
   __typename?: "Mutation";
 
   confirmUser: boolean;
+};
+
+export type ForgotPasswordVariables = {
+  email: string;
+};
+
+export type ForgotPasswordMutation = {
+  __typename?: "Mutation";
+
+  forgotPassword: boolean;
 };
 
 export type LoginVariables = {
@@ -103,6 +137,56 @@ import gql from "graphql-tag";
 // Components
 // ====================================================
 
+export const ChangePasswordDocument = gql`
+  mutation ChangePassword($data: ChangePasswordInput!) {
+    changePassword(data: $data) {
+      id
+      firstName
+      lastName
+      email
+      name
+    }
+  }
+`;
+export class ChangePasswordComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<ChangePasswordMutation, ChangePasswordVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<ChangePasswordMutation, ChangePasswordVariables>
+        mutation={ChangePasswordDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type ChangePasswordProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<ChangePasswordMutation, ChangePasswordVariables>
+> &
+  TChildProps;
+export type ChangePasswordMutationFn = ReactApollo.MutationFn<
+  ChangePasswordMutation,
+  ChangePasswordVariables
+>;
+export function ChangePasswordHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        ChangePasswordMutation,
+        ChangePasswordVariables,
+        ChangePasswordProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    ChangePasswordMutation,
+    ChangePasswordVariables,
+    ChangePasswordProps<TChildProps>
+  >(ChangePasswordDocument, operationOptions);
+}
 export const ConfirmUserDocument = gql`
   mutation ConfirmUser($token: String!) {
     confirmUser(token: $token)
@@ -144,6 +228,50 @@ export function ConfirmUserHOC<TProps, TChildProps = any>(
     ConfirmUserVariables,
     ConfirmUserProps<TChildProps>
   >(ConfirmUserDocument, operationOptions);
+}
+export const ForgotPasswordDocument = gql`
+  mutation ForgotPassword($email: String!) {
+    forgotPassword(email: $email)
+  }
+`;
+export class ForgotPasswordComponent extends React.Component<
+  Partial<
+    ReactApollo.MutationProps<ForgotPasswordMutation, ForgotPasswordVariables>
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Mutation<ForgotPasswordMutation, ForgotPasswordVariables>
+        mutation={ForgotPasswordDocument}
+        {...(this as any)["props"] as any}
+      />
+    );
+  }
+}
+export type ForgotPasswordProps<TChildProps = any> = Partial<
+  ReactApollo.MutateProps<ForgotPasswordMutation, ForgotPasswordVariables>
+> &
+  TChildProps;
+export type ForgotPasswordMutationFn = ReactApollo.MutationFn<
+  ForgotPasswordMutation,
+  ForgotPasswordVariables
+>;
+export function ForgotPasswordHOC<TProps, TChildProps = any>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        ForgotPasswordMutation,
+        ForgotPasswordVariables,
+        ForgotPasswordProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.graphql<
+    TProps,
+    ForgotPasswordMutation,
+    ForgotPasswordVariables,
+    ForgotPasswordProps<TChildProps>
+  >(ForgotPasswordDocument, operationOptions);
 }
 export const LoginDocument = gql`
   mutation Login($email: String!, $password: String!) {
