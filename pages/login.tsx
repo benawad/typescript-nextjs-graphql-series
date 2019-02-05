@@ -3,7 +3,8 @@ import Router from "next/router";
 import React from "react";
 import { InputField } from "../components/fields/InputField";
 import Layout from "../components/Layout";
-import { LoginComponent } from "../generated/apolloComponents";
+import { LoginComponent, MeQuery } from "../generated/apolloComponents";
+import { meQuery } from "../graphql/user/queries/me";
 
 export default () => {
   return (
@@ -15,7 +16,20 @@ export default () => {
             validateOnChange={false}
             onSubmit={async (data, { setErrors }) => {
               const response = await login({
-                variables: data
+                variables: data,
+                update: (cache, { data }) => {
+                  if (!data || !data.login) {
+                    return;
+                  }
+
+                  cache.writeQuery<MeQuery>({
+                    query: meQuery,
+                    data: {
+                      __typename: "Query",
+                      me: data.login
+                    }
+                  });
+                }
               });
               console.log(response);
               if (response && response.data && !response.data.login) {

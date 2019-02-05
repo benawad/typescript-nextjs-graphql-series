@@ -22,7 +22,8 @@
     "next-routes": "^1.4.2",
     "react": "^16.7.0",
     "react-apollo": "^2.4.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "styled-components": "^4.1.3"
   },
   "devDependencies": {
     "@types/cookie": "^0.3.2",
@@ -30,6 +31,7 @@
     "@types/next": "^7.0.6",
     "@types/react": "^16.4.16",
     "@types/react-dom": "16.0.11",
+    "@types/styled-components": "^4.1.8",
     "graphql-code-generator": "^0.16.0",
     "graphql-codegen-typescript-client": "^0.16.0",
     "graphql-codegen-typescript-common": "^0.16.0",
