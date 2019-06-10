@@ -2,6 +2,8 @@ import Link from "next/link";
 import * as React from "react";
 import Layout from "../components/Layout";
 import { LoginComponent } from "../generated/apolloComponents";
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 
 const IndexPage: React.FunctionComponent = () => {
   return (
@@ -27,6 +29,24 @@ const IndexPage: React.FunctionComponent = () => {
           </button>
         )}
       </LoginComponent>
+      <Mutation
+        mutation={gql`
+          mutation {
+            createPost
+          }
+        `}
+      >
+        {cp => <button onClick={() => cp()}>create post</button>}
+      </Mutation>
+      <Mutation
+        mutation={gql`
+          mutation {
+            updatePost
+          }
+        `}
+      >
+        {cp => <button onClick={() => cp()}>update post</button>}
+      </Mutation>
     </Layout>
   );
 };

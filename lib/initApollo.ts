@@ -9,6 +9,7 @@ import { createHttpLink } from "apollo-link-http";
 import fetch from "isomorphic-unfetch";
 import Router from "next/router";
 import { isBrowser } from "./isBrowser";
+import { snackbarStore } from "../components/snackbarStore";
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
@@ -34,8 +35,11 @@ function create(initialState: any, { getToken }: Options) {
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         );
 
-        if (isBrowser && message.includes("not authenticated")) {
+        if (message.includes("not authenticated")) {
           Router.replace("/login");
+        } else {
+          console.log("dispatch");
+          snackbarStore.dispatch.snackbar.handleOpen(message);
         }
       });
     if (networkError) console.log(`[Network error]: ${networkError}`);
